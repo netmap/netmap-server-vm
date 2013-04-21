@@ -89,7 +89,7 @@ fi
 
 # Setup the metrics server daemon.
 cd ~/metrics
-sudo foreman export upstart /etc/init --procfile=Procfile --env=.env \
-    --user=$USER --port=9500
+sudo foreman export upstart /etc/init --app=netmap-metrics \
+    --procfile=Procfile --env=.env --user=$USER --port=11000
 sudo stop netmap-metrics
 sudo start netmap-metrics

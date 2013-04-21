@@ -12,12 +12,12 @@ VM is the recommended environment for working on the
 [doc/use.md](doc/use.md) contains step-by-step instructions for downloading and
 using a pre-built server VM.
 
+
+## Building a VM
+
 [doc/build.md](doc/build.md) has the instructions for re-building the VM. This
 can be useful for other projects, or for deploying a fork of the game server
 into production.
-
-
-## Scripts Description
 
 [script/update-game.sh](script/update-game.sh) lists all the dependencies for
 the game server. Deploying a forked game server will likely require many of the

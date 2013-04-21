@@ -30,5 +30,5 @@ if [ "$USER" = "netmap" ] ; then
 fi
 
 # Download and run the update script.
-sudo -u netmap \
-    sh -c 'curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/update.sh | sh -l'
+curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/update.sh | \
+    sudo -u netmap -i

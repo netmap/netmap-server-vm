@@ -74,6 +74,9 @@ The metrics server can be accessed at
 
 ### Game Server Development
 
+The game server repository is cloned in the `game` directory inside the
+`netmap` user's home directory.
+
 When working on the game server, it is convenient to kill the daemonized server
 and start a server from the command line.
 
@@ -86,6 +89,9 @@ and start a server from the command line.
     ```
 
 ### Metrics Server Development
+
+The metrics server repository is cloned in the `metrics` directory inside the
+`netmap` user's home directory.
 
 When working on the metrics server, it is convenient to kill the daemonized
 server and start a server from the command line.

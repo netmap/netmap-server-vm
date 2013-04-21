@@ -61,6 +61,9 @@ sudo gem install bundler
 # Foreman sets up a system service to run the server as a daemon.
 sudo gem install foreman
 
+# Rake runs the commands in the server's Rakefile.
+sudo gem install rake
+
 # libv8, used by the therubyracer, chokes when installed by bundler.
 sudo gem install therubyracer
 
@@ -96,7 +99,7 @@ fi
 
 # Setup the game server daemon.
 cd ~/game
-sudo foreman export upstart /etc/init --procfile=Procfile --env=.env \
-    --user=$USER --port=9000
+sudo foreman export upstart /etc/init --app=netmap-game --procfile=Procfile \
+    --env=.env --user=$USER --port=9000
 sudo stop netmap-game
 sudo start netmap-game
