@@ -44,6 +44,11 @@ sudo apt-get update -qq
 sudo apt-get install -y postgis
 
 # osm2pgsql
+sudo debconf-set-selections <<'END'
+openstreetmap-postgis-db-setup openstreetmap-postgis-db-setup/initdb boolean false
+openstreetmap-postgis-db-setup openstreetmap-postgis-db-setup/grant_user string
+openstreetmap-postgis-db-setup openstreetmap-postgis-db-setup/dbname string
+END
 sudo add-apt-repository -y ppa:kakrueger/openstreetmap  # osm2pgsql 0.81
 sudo apt-get update -qq
 sudo apt-get install -y osm2pgsql

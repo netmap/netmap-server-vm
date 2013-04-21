@@ -27,6 +27,15 @@ sudo sh -c "echo '$USER ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/$USER"
 sudo apt-get update -qq
 sudo apt-get -y dist-upgrade
 
+# debconf-get-selections is useful for figuring out debconf defaults.
+sudo apt-get install -y debconf-utils
+
+# Quiet all package installation prompts.
+sudo debconf-set-selections <<'END'
+debconf debconf/frontend select Noninteractive
+debconf debconf/priority select critical
+END
+
 # Git.
 sudo apt-get install -y git
 
