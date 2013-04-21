@@ -53,7 +53,7 @@ sudo apt-get install -y libsqlite3-dev sqlite3
 
 # Ruby and Rubygems, used by the game server, which is written in Rails.
 sudo apt-get install -y ruby ruby-dev
-sudo env REALLY_GEM_UPDATE_SYSTEM=1 gem update --system
+sudo env REALLY_GEM_UPDATE_SYSTEM=1 gem update --system 1.8.25
 
 # Bundler, used to install all the gems in a Gemfile.
 sudo gem install bundler

@@ -34,7 +34,7 @@ sudo /etc/init.d/nginx reload
 
 # Ruby and Rubygems, used by foreman, which runs the metrics server.
 sudo apt-get install -y ruby ruby-dev
-sudo env REALLY_GEM_UPDATE_SYSTEM=1 gem update --system
+sudo env REALLY_GEM_UPDATE_SYSTEM=1 gem update --system 1.8.25
 
 # Foreman sets up a system service to run the metrics server as a daemon.
 sudo gem install foreman
@@ -62,6 +62,16 @@ sudo /etc/init.d/postgresql restart
 
 # Ident server used by the node.js postgres connection.
 sudo apt-get install -y oidentd
+
+
+# node.js
+sudo add-apt-repository -y ppa:chris-lea/node.js
+sudo apt-get update -qq
+sudo apt-get install -y nodejs
+
+# CoffeeScript provides cake, which runs the Cakefile in the metrics server.
+npm cache add coffee-script
+sudo npm install -g coffee-script
 
 
 # If the metrics server repository is already checked out, update the code.
