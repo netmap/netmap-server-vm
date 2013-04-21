@@ -62,6 +62,7 @@ have OSX, install the two packages on the
     * Save the file.
 
 8. Set up mDNS.
+
     * `sudo apt-get install -y avahi-daemon`
 
     * Open `/etc/avahi/avahi-daemon.conf` in a text editor e.g.,
