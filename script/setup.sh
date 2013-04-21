@@ -9,9 +9,11 @@ sudo sh -c "echo '$USER ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/$USER"
 
 if [ "$USER" != "netmap" ] ; then
   # If this is not as netmap, create up the netmap user.
-  sudo useradd --home-dir /home/netmap --create-home \
-      --user-group --groups adm,sudo --shell $SHELL \
-      --password $(echo "netmap" | openssl passwd -1 -stdin) netmap
+  if [ ! -d /home/netmap ] ; then
+    sudo useradd --home-dir /home/netmap --create-home \
+        --user-group --groups adm,sudo --shell $SHELL \
+        --password $(echo "netmap" | openssl passwd -1 -stdin) netmap
+  fi
 
   # Set up password-less sudo for the netmap user.
   sudo sh -c "echo 'netmap ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/netmap"
@@ -29,4 +31,4 @@ fi
 
 # Download and run the update script.
 sudo -u netmap \
-    sh -c 'curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/upgrade.sh | sh -l'
+    sh -c 'curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/update.sh | sh -l'
