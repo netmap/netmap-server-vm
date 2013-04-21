@@ -20,13 +20,10 @@ if [ "$HOME" != "/home/netmap" ] ; then
   exit 1
 fi
 
-# Enable password-less sudo for the netmap user.
-if ! sudo grep -q "$USER ALL=[\(]ALL:ALL[\)] NOPASSWD: ALL" /etc/sudoers ; then
-  # This line should only be added once.
-  sudo sh -c "echo $USER ALL=\(ALL:ALL\) NOPASSWD: ALL >> /etc/sudoers"
-fi
+# Enable password-less sudo for the current user.
+sudo sh -c "echo '$USER ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/$USER"
 
-# Generic update.
+# Update all system packages.
 sudo apt-get update -qq
 sudo apt-get -y dist-upgrade
 

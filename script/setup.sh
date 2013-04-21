@@ -5,14 +5,11 @@ set -o errexit  # Stop the script on the first error.
 set -o nounset  # Catch un-initialized variables.
 
 # Enable password-less sudo for the current user.
-if ! sudo grep -q "$USER ALL=[\(]ALL:ALL[\)] NOPASSWD: ALL" /etc/sudoers ; then
-  # This line should only be added once.
-  sudo sh -c "echo $USER ALL=\(ALL:ALL\) NOPASSWD: ALL >> /etc/sudoers"
-fi
+sudo sh -c "echo '$USER ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/$USER"
 
 if [ "$USER" != "netmap" ] ; then
   # If this is not as netmap, create up the netmap user.
-  sudo useradd --home-dir /home/netmap --user-group --groups wheel \
+  sudo useradd --home-dir /home/netmap --user-group --groups adm sudo \
       --password $(echo "netmap" | openssl passwd -1 -stdin) netmap
 
   # Set up password-less sudo for the netmap user.
