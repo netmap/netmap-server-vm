@@ -9,15 +9,16 @@ sudo sh -c "echo '$USER ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/$USER"
 
 if [ "$USER" != "netmap" ] ; then
   # If this is not as netmap, create up the netmap user.
-  sudo useradd --home-dir /home/netmap --user-group --groups adm sudo \
+  sudo useradd --home-dir /home/netmap --create-home \
+      --user-group --groups adm,sudo --shell $SHELL \
       --password $(echo "netmap" | openssl passwd -1 -stdin) netmap
 
   # Set up password-less sudo for the netmap user.
-  sudo sh -c "echo netmap ALL=\(ALL:ALL\) NOPASSWD: ALL >> /etc/sudoers"
+  sudo sh -c "echo 'netmap ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/netmap"
 fi
 
 # If the server VM repo is already checked out, run the update script in there.
-if [ "$USER" == "netmap" ] ; then
+if [ "$USER" = "netmap" ] ; then
   if [ -f /home/netmap/vm/script/update.sh ] ; then
     cd /home/netmap/vm
     git checkout master
@@ -28,4 +29,4 @@ fi
 
 # Download and run the update script.
 sudo -u netmap \
-    "bash -c 'curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/setup.sh | bash -l'"
+    sh -c 'curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/upgrade.sh | sh -l'
