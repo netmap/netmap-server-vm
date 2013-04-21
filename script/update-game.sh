@@ -21,10 +21,10 @@ sudo apt-get install -y git
 sudo apt-get install -y nginx
 
 # nginx configuration for the game server.
-sudo mv netmap-game.conf /etc/nginx/sites-available
+sudo cp ~/vm/nginx/netmap-game.conf /etc/nginx/sites-available
 sudo chown root:root /etc/nginx/sites-available/netmap-game.conf
-sudo ln -s /etc/nginx/sites-available/netmap-game.conf \
-           /etc/nginx/sites-enabled/netmap-game.conf
+sudo ln -s -f /etc/nginx/sites-available/netmap-game.conf \
+              /etc/nginx/sites-enabled/netmap-game.conf
 sudo rm -f /etc/nginx/sites-enabled/default
 
 # Load the new configuration into nginx.
