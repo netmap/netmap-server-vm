@@ -78,7 +78,7 @@ sudo npm install -g coffee-script
 if [ -d ~/metrics ] ; then
   cd ~/metrics
   git checkout master
-  git pull "$GIT_PUBLIC_URL" master
+  git pull --ff-only "$GIT_PUBLIC_URL" master
   npm install
   DATABASE_URL=postgres://127.0.0.1/netmap-metrics cake dbmigrate
 fi
@@ -99,7 +99,13 @@ fi
 
 # Setup the metrics server daemon.
 cd ~/metrics
-sudo foreman export upstart /etc/init --app=netmap-metrics \
-    --procfile=Procfile --env=.env --user=$USER --port=11000
+if [ -f /etc/netmap/prod.keys ] ; then
+  sudo foreman export upstart /etc/init --app=netmap-metrics \
+      --procfile=Procfile --env=production.env --user=$USER --port=11000
+fi
+if [ ! -f /etc/netmap/prod.keys ] ; then
+  sudo foreman export upstart /etc/init --app=netmap-metrics \
+      --procfile=Procfile --env=.env --user=$USER --port=11000
+fi
 sudo stop netmap-metrics
 sudo start netmap-metrics

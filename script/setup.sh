@@ -9,10 +9,20 @@ sudo sh -c "echo '$USER ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/$USER"
 
 if [ "$USER" != "netmap" ] ; then
   # If this is not as netmap, create up the netmap user.
+
+  if [ -f /etc/netmap/prod.keys ] ; then
+    # netmap's password is random in production.
+    PASSWORD="$(openssl rand -hex 32)"
+  fi
+  if [ ! -f /etc/netmap/prod.keys ] ; then
+    # netmap's password is always "netmap" in development VMs.
+    PASSWORD="netmap"
+  fi
+
   if [ ! -d /home/netmap ] ; then
     sudo useradd --home-dir /home/netmap --create-home \
-        --user-group --groups adm,sudo --shell $SHELL \
-        --password $(echo "netmap" | openssl passwd -1 -stdin) netmap
+        --user-group --groups sudo --shell $SHELL \
+        --password $(echo "$PASSWORD" | openssl passwd -1 -stdin) netmap
   fi
 
   # Set up password-less sudo for the netmap user.

@@ -60,8 +60,21 @@ fi
 
 # Run the individual update scripts.
 cd ~/vm
-script/update-game.sh
-script/update-metrics.sh
+script/update-keys.sh
+if [ -f /etc/netmap/prod.keys ] ; then
+  # Production VMs
+  if [ -f /etc/netmap/metrics ] ; then
+    script/update-metrics.sh
+  fi
+  if [ -f /etc/netmap/game ] ; then
+    script/update-game.sh
+  fi
+fi
+if [ ! -f /etc/netmap/prod.keys ] ; then
+  # Development VMs run all the servers in the same VM.
+  script/update-metrics.sh
+  script/update-game.sh
+fi
 
 # Land in the user's home directory.
 cd ~

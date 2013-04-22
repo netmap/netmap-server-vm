@@ -83,7 +83,7 @@ sudo gem install ruby_mapnik
 if [ -d ~/game ] ; then
   cd ~/game
   git checkout master
-  git pull "$GIT_PUBLIC_URL" master
+  git pull --ff-only "$GIT_PUBLIC_URL" master
   bundle install
   rake db:migrate db:seed
 fi
@@ -104,7 +104,14 @@ fi
 
 # Setup the game server daemon.
 cd ~/game
-sudo foreman export upstart /etc/init --app=netmap-game --procfile=Procfile \
+if [ -f /etc/netmap/prod.keys ] ; then
+  sudo foreman export upstart /etc/init --app=netmap-game \
+    --procfile=Procfile.prod --env=config/production.env --user=$USER \
+    --port=9000
+fi
+if [ ! -f /etc/netmap/prod.keys ] ; then
+  sudo foreman export upstart /etc/init --app=netmap-game --procfile=Procfile \
     --env=.env --user=$USER --port=9000
+fi
 sudo stop netmap-game
 sudo start netmap-game
