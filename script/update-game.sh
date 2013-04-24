@@ -23,7 +23,12 @@ sudo apt-get install -y git
 sudo apt-get install -y nginx
 
 # nginx configuration for the game server.
-sudo cp ~/vm/nginx/netmap-game.conf /etc/nginx/sites-available
+if [ -f /etc/netmap/prod.keys ] ; then
+  sudo cp ~/vm/nginx/prod/netmap-game.conf /etc/nginx/sites-available
+fi
+if [ ! -f /etc/netmap/prod.keys ] ; then
+  sudo cp ~/vm/nginx/netmap-game.conf /etc/nginx/sites-available
+fi
 sudo chown root:root /etc/nginx/sites-available/netmap-game.conf
 sudo ln -s -f /etc/nginx/sites-available/netmap-game.conf \
               /etc/nginx/sites-enabled/netmap-game.conf
@@ -115,5 +120,6 @@ if [ ! -f /etc/netmap/prod.keys ] ; then
   sudo foreman export upstart /etc/init --app=netmap-game --procfile=Procfile \
     --env=.env --user=$USER --port=9000
 fi
-sudo stop netmap-game
+# 'stop' will fail during the initial setup, so ignore its exit status.
+sudo stop netmap-game || echo 'Ignore the error above during initial setup'
 sudo start netmap-game

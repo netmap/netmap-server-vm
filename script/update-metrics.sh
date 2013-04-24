@@ -24,7 +24,12 @@ sudo apt-get install -y git
 sudo apt-get install -y nginx
 
 # nginx configuration for the metrics server.
-sudo cp ~/vm/nginx/netmap-metrics.conf /etc/nginx/sites-available
+if [ -f /etc/netmap/prod.keys ] ; then
+  sudo cp ~/vm/nginx/prod/netmap-metrics.conf /etc/nginx/sites-available
+fi
+if [ ! -f /etc/netmap/prod.keys ] ; then
+  sudo cp ~/vm/nginx/netmap-metrics.conf /etc/nginx/sites-available
+fi
 sudo chown root:root /etc/nginx/sites-available/netmap-metrics.conf
 sudo ln -s -f /etc/nginx/sites-available/netmap-metrics.conf \
               /etc/nginx/sites-enabled/netmap-metrics.conf
@@ -113,5 +118,7 @@ if [ ! -f /etc/netmap/prod.keys ] ; then
   sudo foreman export upstart /etc/init --app=netmap-metrics \
       --procfile=Procfile --env=.env --user=$USER --port=11000
 fi
-sudo stop netmap-metrics
+
+# 'stop' will fail during the initial setup, so ignore it's exit status.
+sudo stop netmap-metrics || echo 'Ignore the error above during initial setup'
 sudo start netmap-metrics

@@ -103,18 +103,3 @@ server and start a server from the command line.
     cd ~/metrics
     foreman start
     ```
-
-### Production
-
-The following command runs the game server in production mode.
-
-```bash
-foreman start --procfile=Procfile.prod --env=config/production.env
-```
-
-The following sets up the production server as a daemon.
-
-```bash
-sudo foreman export upstart /etc/init --procfile=Procfile.prod \
-    --env=config/production.env --user=$USER --port=12300
-```
