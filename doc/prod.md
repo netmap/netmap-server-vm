@@ -11,13 +11,13 @@ keys. Read the
 [keys repository docs](https://github.com/netmap/netmap-dev-keys/blob/master/README.md)
 and set up your own keys repository.
 
-The git URL to the keys repository should be saved in `/etc/netmap/keys.prod`
+The git URL to the keys repository should be saved in `/etc/netmap/prod.keys`
 on your production server. The existence of this file tells the VM scripts to
 configure a production server.
 
 ```bash
 sudo mkdir /etc/netmap
-sudo sh -c 'echo "https://you@github.com/you/private-keys-repo.git" > /etc/netmap/keys.prod
+sudo sh -c 'echo "https://you@github.com/you/private-keys-repo.git" > /etc/netmap/prod.keys
 ```
 
 ## Game Server Setup
@@ -30,7 +30,8 @@ sudo touch /etc/netmap/game
 ```
 
 Kick off the VM setup script. After one sudo prompt, the script will run on its
-own for a while.
+own for a while. If the keys repository requires a password, you will be
+prompted for it a few minutes into the setup.
 
 ```bash
 curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/setup.sh | sh

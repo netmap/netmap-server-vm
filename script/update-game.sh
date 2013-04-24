@@ -112,6 +112,7 @@ fi
 # Setup the game server daemon.
 cd ~/game
 if [ -f /etc/netmap/prod.keys ] ; then
+  rake assets:precompile
   sudo foreman export upstart /etc/init --app=netmap-game \
     --procfile=Procfile.prod --env=config/production.env --user=$USER \
     --port=9000
