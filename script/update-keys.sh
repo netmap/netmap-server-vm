@@ -29,4 +29,4 @@ fi
 
 # Make sure the keys aren't readable by other users.
 cd ~/keys
-chmod 0600 *
+chmod 0600 *.pem
