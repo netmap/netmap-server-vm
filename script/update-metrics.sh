@@ -79,8 +79,6 @@ if [ -d ~/metrics ] ; then
   cd ~/metrics
   git checkout master
   git pull --ff-only "$GIT_PUBLIC_URL" master
-  npm install
-  DATABASE_URL=postgres://127.0.0.1/netmap-metrics cake dbmigrate
 fi
 
 # Otherwise, check out the metrics server repository.
@@ -88,13 +86,19 @@ if [ ! -d ~/metrics ] ; then
   cd ~
   git clone "$GIT_PUBLIC_URL" metrics
   cd ~/metrics
-  npm install
   createdb netmap-metrics
-  DATABASE_URL=postgres://127.0.0.1/netmap-metrics cake dbmigrate
 
   # Switch the repository URL to the one that accepts pushes.
   git remote rename origin public
   git remote add origin "$GIT_PUSH_URL"
+fi
+
+# Update packages and the database.
+cd ~/metrics
+npm install
+DATABASE_URL=postgres://127.0.0.1/netmap-metrics cake dbmigrate
+if [ ! -f /etc/netmap/prod.keys ] ; then
+  cake devapp
 fi
 
 # Setup the metrics server daemon.
