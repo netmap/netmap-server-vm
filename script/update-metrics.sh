@@ -7,6 +7,8 @@ GIT_PUBLIC_URL=git://github.com/netmap/netmap-metrics-server.git
 # Git URL that allows pushes, but requires authentication.
 GIT_PUSH_URL=git@github.com:netmap/netmap-metrics-server.git
 
+set -o errexit  # Stop the script on the first error.
+set -o nounset  # Catch un-initialized variables.
 
 # Build environment for node.js packages with native libraries.
 sudo apt-get install -y build-essential

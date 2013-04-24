@@ -1,6 +1,9 @@
 #!/bin/sh
 # Idempotent server SSL keys setup steps.
 
+set -o errexit  # Stop the script on the first error.
+set -o nounset  # Catch un-initialized variables.
+
 # Git URL.
 if [ -f /etc/netmap/prod.keys ] ; then
   # In production, prod.keys points to the keys repository.

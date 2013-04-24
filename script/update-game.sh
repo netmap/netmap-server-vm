@@ -7,6 +7,8 @@ GIT_PUBLIC_URL=git://github.com/netmap/netmap-game-server.git
 # Git URL that allows pushes, but requires authentication.
 GIT_PUSH_URL=git@github.com:netmap/netmap-game-server.git
 
+set -o errexit  # Stop the script on the first error.
+set -o nounset  # Catch un-initialized variables.
 
 # Build environment for gems with native extensions.
 sudo apt-get install -y build-essential

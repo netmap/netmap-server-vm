@@ -52,7 +52,7 @@ two packages on the [FUSE for OSX page](http://osxfuse.github.com/).
 
     ```bash
     # ssh netmap@netmap.local
-    ~/netmap/doc/vm-server-update.sh
+    ~/vm/script/update.sh
     ```
 
 ## General Use
@@ -62,8 +62,8 @@ mounted over SSHFS. This makes the source code available to all the local
 software, such as Photoshop.
 
 ```bash
-mkdir netmap-server
-sshfs netmap@netmap.local: netmap-server
+mkdir netmap-vm
+sshfs netmap@netmap.local: netmap-vm
 ```
 
 The game server can be accessed at [http://netmap.local/](http://netmap.local/)
