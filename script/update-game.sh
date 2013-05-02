@@ -13,6 +13,9 @@ set -o nounset  # Catch un-initialized variables.
 # Build environment for gems with native extensions.
 sudo apt-get install -y build-essential
 
+# The rice gem uses automake.
+sudo apt-get install -y automake
+
 # Easy way to add PPAs.
 sudo apt-get install -y software-properties-common
 

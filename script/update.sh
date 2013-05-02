@@ -5,7 +5,7 @@
 GIT_PUBLIC_URL=git://github.com/netmap/netmap-server-vm.git
 
 # Git URL that allows pushes, but requires authentication.
-GIT_PUSH_URL=git@github.com/netmap/netmap-server-vm.git
+GIT_PUSH_URL=git@github.com:netmap/netmap-server-vm.git
 
 set -o errexit  # Stop the script on the first error.
 set -o nounset  # Catch un-initialized variables.
