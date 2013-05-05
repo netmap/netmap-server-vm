@@ -27,6 +27,16 @@ if [ "$USER" != "netmap" ] ; then
 
   # Set up password-less sudo for the netmap user.
   sudo sh -c "echo 'netmap ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/netmap"
+
+  # Set up SSH public key access.
+  sudo mkdir -p /home/netmap/.ssh
+  sudo chown netmap:netmap /home/netmap/.ssh
+  sudo chmod 0700 /home/netmap/.ssh
+  if [ -f ~/.ssh/authorized_keys ] ; then
+    sudo cp ~/.ssh/authorized_keys /home/netmap/.ssh/authorized_keys
+    sudo chown netmap:netmap /home/netmap/.ssh/authorized_keys
+    sudo chmod 0600 /home/netmap/.ssh/authorized_keys
+  fi
 fi
 
 # If the server VM repo is already checked out, run the update script in there.
