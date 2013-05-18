@@ -92,18 +92,27 @@ have OSX, install the two packages on the
     # The password is ubuntu
     ```
 
-10. Set up the server.
+10. Configure the VM.
+
+    ```bash
+    # ssh ubuntu@netmap.local
+    sudo mkdir -p /etc/netmap
+    sudo touch /etc/netmap/game  # Set up the game server.
+    sudo touch /etc/netmap/metrics  # Set up the metrics server.
+    ```
+
+11. Set up the server.
 
     ```bash
     # ssh ubuntu@netmap.local
     curl -fLsS https://github.com/netmap/netmap-server-vm/raw/master/script/setup.sh | sh
     ```
 
-11. Shut down the VM if you want to back up the disk image.
+12. Shut down the VM if you want to back up the disk image.
 
     ```bash
     # ssh ubuntu@netmap.local
     sudo poweroff
     ```
 
-12. Follow the instructions in `vm-server-use.md` for development.
+13. Follow the instructions in `vm-server-use.md` for development.
