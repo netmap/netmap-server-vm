@@ -86,6 +86,7 @@ sudo gem install therubyracer
 sudo add-apt-repository -y ppa:mapnik/v2.1.0
 sudo apt-get update -qq
 sudo apt-get install -y libmapnik-dev mapnik-utils
+sudo gem install rice --version=1.4.3  # ruby_mapnik doesn't build on Rice 1.5.
 sudo gem install ruby_mapnik
 
 
